@@ -1,5 +1,7 @@
 use std::fs;
 
+mod first_december {
+
 fn first() {
     let file_content  = fs::read_to_string("src/01/content.txt").expect("Error");
     let split = file_content.split("\n");
@@ -24,4 +26,5 @@ fn first() {
         total += int;
     }
     println!("{}", total);
+}
 }
