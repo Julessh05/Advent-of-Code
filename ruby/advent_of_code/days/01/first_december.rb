@@ -6,22 +6,23 @@ class FirstDecember
   def self.first
     total = 0
     read_file.each do |line|
-      first_number = 0
-      last_number = 0
-      is_first_number = true
-      line.each_char do |char|
-        next unless char.match?(/[[:digit:]]/)
-
-        if is_first_number
-          is_first_number = false
-          first_number = char
-        end
-        last_number = char
-      end
-      number = first_number.to_s + last_number.to_s
-      total += number.to_i
+      total += get_total(line)
     end
     puts total
+  end
+
+  def self.get_total(input)
+    first_number = last_number = 0
+    is_first_number = true
+    input.each_char do |char|
+      next unless char.match?(/[[:digit:]]/)
+
+      first_number = char if is_first_number
+      last_number = char
+      is_first_number = false if is_first_number
+    end
+    number = first_number.to_s + last_number.to_s
+    number.to_i
   end
 
   # Read the File and return it's content
