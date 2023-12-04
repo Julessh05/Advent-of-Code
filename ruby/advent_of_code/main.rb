@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '2023/days/01/first_december'
+# Import 2023
+require_relative '2023/days/days'
 
 def main
   FirstDecember.first

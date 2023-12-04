@@ -51,7 +51,7 @@ mod solution {
         let content = get_content();
         let mut total: u64 = 0;
         for line in content {
-            // Not needed, as empty lines are filtered out in get_content since 04.12.2023
+            // Not needed, as empty lines are filtered out in get_content since 04.12.twenty_three
             //if line.is_empty() { continue; }
             if contains_alphabetic_number(&line.to_string()) {
                 let first_and_last_alphabetic: Vec<&str> =
