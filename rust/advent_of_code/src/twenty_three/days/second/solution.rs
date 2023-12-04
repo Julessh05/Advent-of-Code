@@ -1,11 +1,12 @@
+use std::iter::Map;
 use std::string::ToString;
 
-use crate::twenty_three::days::shared;
+use crate::twenty_three::days::shared::get_content;
 
 /* FIRST PROBLEM */
 /// Solves the first problem of the second december
 pub fn first() {
-    let content = strip_content(shared::get_content("second"));
+    let content = strip_content(get_content("second"));
     let mut total: u64 = 0;
     for (index, game) in content.iter().enumerate() {
         if is_game_possible(game.as_str()) {
@@ -37,13 +38,9 @@ fn strip_content(unstripped: Vec<String>) -> Vec<String> {
 
 fn is_game_possible(game: &str) -> bool {
     let draws = game.split(";");
-    println!("Draws: {:?}", draws);
     for draw in draws {
-        println!("One draw: {}", draw);
         let single_parts_of_draw = draw.split(",");
-        println!("All single parts of this draw: {:?}", single_parts_of_draw);
         for part in single_parts_of_draw {
-            println!("A single part: {}", part);
             let mut stripped = part;
             if part.starts_with(" ") {
                 stripped = part.strip_prefix(" ").unwrap();
@@ -51,8 +48,6 @@ fn is_game_possible(game: &str) -> bool {
             let parts_of_single_draw: Vec<&str> = stripped.split(" ").collect();
             let count = parts_of_single_draw[0].parse::<u64>().unwrap();
             let color = parts_of_single_draw[1];
-            println!("Color: {}", color);
-            println!("Count: {}", count);
             for cc in COLOR_COMBINATIONS {
                 if color == cc.color && count > cc.maximum_count {
                     return false;
@@ -63,6 +58,12 @@ fn is_game_possible(game: &str) -> bool {
         }
     }
     return true;
+}
+
+enum Color {
+    Red,
+    Green,
+    Blue,
 }
 
 struct ColorCombination<'a> {
@@ -86,4 +87,26 @@ const COLOR_COMBINATIONS: [ColorCombination; 3] = [
 ];
 
 /* SECOND PROBLEM */
-pub fn second() {}
+pub fn second() {
+    let content = strip_content(get_content("second"));
+}
+
+fn split_into_map(content: Vec<String>) -> Vec<Map<Color, u64>> {
+    let mut result: Vec<Map<Color, u64>> = vec![];
+    for game in content {
+        let draws = game.split(";");
+        for draw in draws {
+            let single_parts_of_draw = draw.split(",");
+            for part in single_parts_of_draw {
+                let mut stripped = part;
+                if part.starts_with(" ") {
+                    stripped = part.strip_prefix(" ").unwrap();
+                }
+                let parts_of_single_draw: Vec<&str> = stripped.split(" ").collect();
+                let count = parts_of_single_draw[0].parse::<u64>().unwrap();
+                let color = parts_of_single_draw[1];
+            }
+        }
+    }
+    return result;
+}
