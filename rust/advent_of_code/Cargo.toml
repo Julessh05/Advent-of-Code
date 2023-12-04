@@ -4,7 +4,3 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Julian Schumacher"]
 repository = "https://github.com/Julessh05/Advent-of-Code"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
