@@ -36,21 +36,28 @@ fn strip_content(unstripped: Vec<String>) -> Vec<String> {
 }
 
 fn is_game_possible(game: &str) -> bool {
-    game.to_string().retain(|char| char != ' ');
     let draws = game.split(";");
+    println!("Draws: {:?}", draws);
     for draw in draws {
-        println!("Draw: {}", draw);
+        println!("One draw: {}", draw);
         let single_parts_of_draw = draw.split(",");
+        println!("All single parts of this draw: {:?}", single_parts_of_draw);
         for part in single_parts_of_draw {
-            println!("Single part: {}", part);
-            let parts_of_single_draw: Vec<&str> = part.split(" ").collect();
+            println!("A single part: {}", part);
+            let mut stripped = part;
+            if part.starts_with(" ") {
+                stripped = part.strip_prefix(" ").unwrap();
+            }
+            let parts_of_single_draw: Vec<&str> = stripped.split(" ").collect();
             let count = parts_of_single_draw[0].parse::<u64>().unwrap();
             let color = parts_of_single_draw[1];
+            println!("Color: {}", color);
+            println!("Count: {}", count);
             for cc in COLOR_COMBINATIONS {
-                if color == cc.color && count < cc.maximum_count {
-                    continue;
-                } else {
+                if color == cc.color && count > cc.maximum_count {
                     return false;
+                } else {
+                    continue;
                 }
             }
         }
