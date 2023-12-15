@@ -4,3 +4,5 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Julian Schumacher"]
 repository = "https://github.com/Julessh05/Advent-of-Code"
+homepage = "https://julianschumacher.dev/projects/advent_of_code"
+keywords = ["Advent_Of_Code", "Advent", "Code", "Problem_solving"]
