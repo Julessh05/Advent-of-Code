@@ -40,12 +40,11 @@ pub fn first() {
                         for i in start_index..end_index {
                             number_as_string.push(content_as_chars[line_index][i as usize])
                         }
-                        println!("Start index: {}, end index: {}", start_index, end_index);
-                        println!("Line Index: {}", line_index);
-                        println!("{}", number_as_string);
-                        let number = number_as_string.parse::<u64>().unwrap();
+                        if !number_as_string.is_empty() {
+                            let number = number_as_string.parse::<u64>().unwrap();
+                            total += number;
+                        }
                         is_connected = false;
-                        total += number;
                     }
                     start_index = -1;
                     end_index = -1;
