@@ -6,6 +6,13 @@ pub mod second {
         second_main_one();
         second_main_two();
     }
+    
+
+    enum Tendency {
+        Increase,
+        Decrease,
+        // Stable isn't needed because this will automatically be a false case
+    }
 
     fn get_input() -> Vec<String> {
         let file_content = fs::read_to_string("data/input_second.txt").unwrap();
@@ -17,12 +24,6 @@ pub mod second {
             list.push(line.to_string());
         }
         list
-    }
-
-    enum Tendency {
-        Increase,
-        Decrease,
-        // Stable isn't needed because this will automatically be a false case
     }
 
     /**
