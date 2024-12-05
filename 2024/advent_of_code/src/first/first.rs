@@ -10,7 +10,7 @@ pub mod first {
     }
 
     fn get_input(list_one: &mut Vec<i32>, list_two: &mut Vec<i32>) {
-        let file_content = fs::read_to_string("../../data/input_first.txt").unwrap();
+        let file_content = fs::read_to_string("data/input_first.txt").unwrap();
         for line in file_content.split("\n") {
             if line.is_empty() {
                 break;
