@@ -6,7 +6,9 @@ pub mod second {
         second_main_one();
         second_main_two();
     }
-    
+
+    static mut tend: Option<Tendency> = None;
+
 
     enum Tendency {
         Increase,
@@ -15,7 +17,7 @@ pub mod second {
     }
 
     fn get_input() -> Vec<String> {
-        let file_content = fs::read_to_string("data/input_second.txt").unwrap();
+        let file_content = fs::read_to_string("data/test_input_second.txt").unwrap();
         let mut list: Vec<String> = vec![];
         for line in file_content.split("\n") {
             if line.is_empty() {
@@ -30,8 +32,7 @@ pub mod second {
     This functions checks if the line is safe and
     returns the result as a boolean value
      */
-    fn check_line(levels: Vec<i32>) -> bool {
-        let mut tend: Option<Tendency> = None;
+    unsafe fn check_line(levels: Vec<i32>) -> bool {
         for i in 0..levels.len() - 1 {
             if levels[i] < levels[i + 1] {
                 if tend.is_none() {
@@ -150,12 +151,50 @@ pub mod second {
         true
     }
 
+    fn check_line_with_buffer_counter(levels: Vec<i32>) -> bool {
+        println!("{:?}", levels);
+        let mut indice: Vec<usize> = vec![];
+        let mut tend: Option<Tendency> = None;
+        let tend_to_pass = tend;
+        for i in 0..levels.len() - 1 {
+            check_values(levels[i], levels[i + 1], tend_to_pass);
+        }
+        println!("{:?}", indice);
+        if indice.len() < 2 {
+            return true;
+        } else if indice.len() < 3 {
+            return indice[0] + 1 == indice[1];
+        }
+        false
+    }
+
+    fn check_values(one: i32, two: i32, tend: Option<Tendency>) -> (bool, Option<Tendency>) {
+        let mut tend_to_return: Option<Tendency> = tend;
+        if one < two {
+            if tend_to_return.is_none() {
+                tend_to_return = Some(Increase);
+            } else if !matches!(tend_to_return, Some(Increase)) {
+                return (false, tend_to_return);
+            }
+            (check_diff(one, two), tend_to_return)
+        } else if one > two {
+            if tend_to_return.is_none() {
+                tend_to_return = Some(Decrease);
+            } else if !matches!(tend_to_return, Some(Decrease)) {
+                return (false, tend_to_return);
+            }
+            return (check_diff(one, two), tend_to_return);
+        } else {
+            return (false, tend_to_return);
+        }
+    }
+
     fn second_main_two() {
         let list: Vec<String> = get_input();
         let mut safe_count: usize = list.len();
         for line in list {
             let levels: Vec<i32> = line.split(" ").map(|s| s.parse::<i32>()).filter_map(Result::ok).collect();
-            if !check_line_with_buffer(levels) {
+            if !check_line_with_buffer_counter(levels) {
                 safe_count -= 1;
             }
         }

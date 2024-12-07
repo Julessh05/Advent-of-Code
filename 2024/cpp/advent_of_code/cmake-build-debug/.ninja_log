@@ -1,0 +1,9 @@
+# ninja log v6
+6	820	1733605597352778689	CMakeFiles/advent_of_code.dir/main.cpp.o	71daae1c520a6d03
+2	95	1733606503177021795	build.ninja	8c573d2332a927a
+2	1518	1733604483333920632	CMakeFiles/advent_of_code.dir/day2/day2.cpp.o	1f1381f95e35c427
+820	883	1733605598166564554	advent_of_code	c8e9e95d0cc9035a
+5	892	1733606592159346978	CMakeFiles/advent_of_code.dir/main.cpp.o	71daae1c520a6d03
+892	1064	1733606593046727164	advent_of_code	c8e9e95d0cc9035a
+5	1038	1733607718077570442	CMakeFiles/advent_of_code.dir/main.cpp.o	71daae1c520a6d03
+1039	1196	1733607719111120678	advent_of_code	c8e9e95d0cc9035a
