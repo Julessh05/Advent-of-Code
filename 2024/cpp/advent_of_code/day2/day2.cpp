@@ -10,7 +10,7 @@ using namespace std;
 
 class SecondDay {
     static vector<string> getInput() {
-        ifstream file("../data/second_input.txt");
+        ifstream file("../data/input_second.txt");
         string content;
         vector<string> lines;
         string line;
@@ -57,12 +57,11 @@ class SecondDay {
         if (tend == Decrease) {
             return 1 <= second - first && second - first <= 3;
         }
+        println("Error");
         return false;
     }
 
-    bool check_line(const string& line) {
-        tend = Undefined;
-        const vector<uint8_t> levels = getLevels(line);
+    bool check_levels(const vector<uint8_t>& levels) {
         for (int i = 0; i < levels.size() - 1; i++) {
             if (!compare_levels(levels[i], levels[i + 1])) {
                 return false;
@@ -71,25 +70,25 @@ class SecondDay {
         return true;
     }
 
+    bool check_line(const string& line) {
+        tend = Undefined;
+        const vector<uint8_t> levels = getLevels(line);
+        return check_levels(levels);
+    }
+
     bool check_line_with_buffer(const string& line) {
         tend = Undefined;
         const vector<uint8_t> levels = getLevels(line);
-        bool did_remove = false;
-        for (int i = 0; i < levels.size() - 1; i++) {
-            if (!compare_levels(levels[i], levels[i + 1])) {
-                if (!did_remove) {
-                    did_remove = true;
-                    // Applicable if level i + 1 can be removed to make the report safe
-                    const bool first_levels = compare_levels(levels[i], levels[i + 2]); // TODO i + 2 gegeben?
-                    // applicable if level i can be removed to make the report safe
-                    const bool second_levels = compare_levels(levels[i + 1], levels[i + 2]);
-                    if (first_levels || second_levels) {
-                        continue;
-                    }
-                    return false;
+        vector<uint8_t> temp_levels = levels;
+        if (!check_levels(levels)) {
+            for (int i = 0; i < levels.size(); i++) {
+                temp_levels.erase(temp_levels.begin() + i);
+                if (check_levels(temp_levels)) {
+                    return true;
                 }
-                return false;
+                temp_levels = levels;
             }
+            return false;
         }
         return true;
     }
