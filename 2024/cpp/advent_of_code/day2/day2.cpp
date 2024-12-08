@@ -82,6 +82,9 @@ class SecondDay {
         vector<uint8_t> temp_levels = levels;
         if (!check_levels(levels)) {
             for (int i = 0; i < levels.size(); i++) {
+                if (i < 2) {
+                    tend = Undefined;
+                }
                 temp_levels.erase(temp_levels.begin() + i);
                 if (check_levels(temp_levels)) {
                     return true;
