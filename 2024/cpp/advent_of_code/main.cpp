@@ -1,8 +1,8 @@
-#include "day2/day2.cpp"
+#include "src/day3/day3.cpp"
 
 int main() {
-    SecondDay current = SecondDay();
-    current.first();
-    current.second();
+    ThirdDay day = ThirdDay();
+    day.first();
+    day.second();
     return 0;
 }
