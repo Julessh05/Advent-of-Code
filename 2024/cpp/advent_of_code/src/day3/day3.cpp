@@ -27,10 +27,18 @@ public:
         const string input = getInput();
         int result = 0;
         vector<Multiply> multiplies;
-        const string regex_string = "";
-        const regex regex(regex_string);
-        // TODO: update
-        regex_search(input, regex);
+        const regex reg("mul(\\d{1,3}, \\d{1,3})");
+        const regex inner_regex("\\d{1,3}");
+        smatch match;
+        if (regex_search(input, match, reg)) {
+            auto m = Multiply();
+            smatch inner_match;
+            regex_search(match[0].str(), match[1].str(), inner_match, inner_regex);
+            m.first = stoi(inner_match.str());
+            regex_search(match[0].str(), match[1].str(), inner_match, inner_regex);
+            m.second = stoi(inner_match.str());
+            multiplies.push_back(m);
+        }
         for (Multiply multiply: multiplies) {
             result += multiply.first * multiply.second;
         }
