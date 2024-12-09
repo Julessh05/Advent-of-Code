@@ -22,30 +22,53 @@ class ThirdDay {
         int second;
     };
 
-public:
-    void first() {
-        const string input = getInput();
-        int result = 0;
+    static int calculate_for_input(string input) {
         vector<Multiply> multiplies;
-        const regex reg("mul(\\d{1,3}, \\d{1,3})");
-        const regex inner_regex("\\d{1,3}");
-        smatch match;
-        if (regex_search(input, match, reg)) {
+        const regex reg(R"(mul\(\d{1,3},\d{1,3}\))");
+        const regex number_regex("\\d{1,3}");
+        // Get iterator of mul(d, d)
+        sregex_iterator begin(input.begin(), input.end(), reg);
+        sregex_iterator end;
+        // Loop over "multiply" instructions
+        for (sregex_iterator it = begin; it != end; ++it) {
+            // Get single instruction
+            const smatch &match = *it;
             auto m = Multiply();
-            smatch inner_match;
-            regex_search(match[0].str(), match[1].str(), inner_match, inner_regex);
-            m.first = stoi(inner_match.str());
-            regex_search(match[0].str(), match[1].str(), inner_match, inner_regex);
-            m.second = stoi(inner_match.str());
+            // Get numbers
+            sregex_iterator number_begin(match[0].str().begin(), match[0].str().end(), number_regex);
+            sregex_iterator number_end;
+            m.first = stoi(number_begin->str());
+            m.second = stoi(next(number_begin, 1)->str());
             multiplies.push_back(m);
         }
-        for (Multiply multiply: multiplies) {
+        int result = 0;
+        for (auto multiply: multiplies) {
             result += multiply.first * multiply.second;
         }
+        return result;
+    }
+
+public:
+    static void first() {
+        const string input = getInput();
+        const int result = calculate_for_input(input);
         printf("Result: %i\n", result);
     }
 
-    void second() {
+    static void second() {
         const string input = getInput();
+        vector<string> substrings;
+        // Get first substring to apply (instructions are enabled by default)
+        const uint32_t first_stop = input.find("don't()");
+        substrings.push_back(input.substr(0, first_stop));
+        // Get the following substrings to apply
+        while () {
+        }
+        int result = 0;
+        // Extract numbers and add up
+        for (const string &substring: substrings) {
+            result += calculate_for_input(substring);
+        }
+        printf("Result: %i\n", result);
     }
 };
