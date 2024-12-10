@@ -58,11 +58,18 @@ public:
     static void second() {
         const string input = getInput();
         vector<string> substrings;
+        string working_input = input;
         // Get first substring to apply (instructions are enabled by default)
-        const uint32_t first_stop = input.find("don't()");
-        substrings.push_back(input.substr(0, first_stop));
+        const uint32_t first_stop = working_input.find("don't()");
+        substrings.push_back(working_input.substr(0, first_stop));
+        working_input.erase(0, first_stop);
         // Get the following substrings to apply
-        while () {
+        while (!working_input.empty()) {
+            const uint32_t to_remove = working_input.find("do()");
+            working_input.erase(0, to_remove);
+            const uint32_t stop = working_input.find(("don't()"));
+            substrings.push_back(working_input.substr(0, stop));
+            working_input.erase(0, stop);
         }
         int result = 0;
         // Extract numbers and add up

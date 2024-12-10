@@ -1,7 +1,7 @@
-#include "src/day3/day3.cpp"
+#include "src/day4/day4.cpp";
 
 int main() {
-    ThirdDay::first();
-    ThirdDay::second();
+    FourthDay::first();
+    FourthDay::second();
     return 0;
 }
