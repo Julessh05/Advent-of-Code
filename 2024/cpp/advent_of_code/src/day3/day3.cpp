@@ -17,7 +17,7 @@ class ThirdDay {
     }
 
     class Multiply {
-    public:
+      public:
         int first;
         int second;
     };
@@ -42,13 +42,13 @@ class ThirdDay {
             multiplies.push_back(m);
         }
         int result = 0;
-        for (auto multiply: multiplies) {
+        for (auto multiply : multiplies) {
             result += multiply.first * multiply.second;
         }
         return result;
     }
 
-public:
+  public:
     static void first() {
         const string input = getInput();
         const int result = calculate_for_input(input);
@@ -73,7 +73,7 @@ public:
         }
         int result = 0;
         // Extract numbers and add up
-        for (const string &substring: substrings) {
+        for (const string &substring : substrings) {
             result += calculate_for_input(substring);
         }
         printf("Result: %i\n", result);
